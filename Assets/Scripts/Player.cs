@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float _speed = 5.0f;
     private float _speedMultiplier = 2.0f;
+    private float _thrusterBoost = 5.0f;
     [SerializeField]
     private GameObject _laserPrefab;
     [SerializeField]
@@ -37,6 +38,8 @@ public class Player : MonoBehaviour
     private AudioClip _laserSoundClip;
 
     private AudioSource _audioSource;
+
+    
 
 
     void Start()
@@ -90,8 +93,16 @@ public class Player : MonoBehaviour
         // How to move the character right or left
         Vector3 direction = new Vector3(horizontalInput, verticalInput, 0);
 
-        transform.Translate(direction * _speed * Time.deltaTime);   
-              
+        // Phase I Thrusters
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            transform.Translate(direction * (_speed + _thrusterBoost) * Time.deltaTime);
+        }
+        else
+        {
+            transform.Translate(direction * _speed * Time.deltaTime);
+        }
+                 
         // Control y boundary of the player
         transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, lowerLimit, upperLimit), 0);
 

@@ -7,7 +7,7 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float _speed = 5.0f;
     private float _speedMultiplier = 2.0f;
-    private float _thrusterBoost = 2.0f;
+    private float _thrusterBoost = 4.0f;
     [SerializeField]
     private GameObject _laserPrefab;
     [SerializeField]
@@ -16,12 +16,13 @@ public class Player : MonoBehaviour
     private float _fireRate = 0.5f;
     private float _canFire = -1f;
     [SerializeField]
+    private int _AmmoCount = 15;
+    [SerializeField]
     private int _lives = 3;
     private SpawnManager _spawnManager;
 
     private bool _isTripleShotActive = false;
     private bool _isSpeedBoostActive = false;
-
     private bool _isShieldsActive = false;
     [SerializeField]
     private int _shieldStrength = 0;
@@ -74,9 +75,11 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && Time.time > _canFire)
+        if (Input.GetKeyDown(KeyCode.Space) && Time.time > _canFire && _AmmoCount > 0)
         {
             FireLaser();
+            _AmmoCount--;
+            HandleAmmo();
         }
 
         CalculateMovement();
@@ -239,6 +242,11 @@ public class Player : MonoBehaviour
     {
         _score += points;
         _uiManager.UpdateScore(_score);
+    }
+
+    public void HandleAmmo()
+    {
+        _uiManager.UpdateAmmo(_AmmoCount);
     }
 
 }

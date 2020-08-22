@@ -901,15 +901,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 5
-  _thrusterBoost: 5
   _laserPrefab: {fileID: 6532922224651532067, guid: dc99d85f5a4726e47965273ef6125cab,
     type: 3}
   _tripleShotPrefab: {fileID: 3655801536509071506, guid: f6205835157f11b418cf15515165bc51,
     type: 3}
   _fireRate: 0.15
   _lives: 3
+  _shieldStrength: 0
   _score: 0
   _shieldVisualizer: {fileID: 258325871}
+  _shieldSpriteRenderer: {fileID: 258325873}
   _leftEngine: {fileID: 1872674250}
   _rightEngine: {fileID: 397116958}
   _laserSoundClip: {fileID: 8300000, guid: 75676f361bdfeaf41a46623e95df3dbc, type: 3}
@@ -1915,6 +1916,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 298451140441719054, guid: 806e3fa54f3e9e542a607396ca3e2cd1,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 298451140441719054, guid: 806e3fa54f3e9e542a607396ca3e2cd1,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 298451140441719054, guid: 806e3fa54f3e9e542a607396ca3e2cd1,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4161173001100767503, guid: 806e3fa54f3e9e542a607396ca3e2cd1,
         type: 3}
       propertyPath: _explosion

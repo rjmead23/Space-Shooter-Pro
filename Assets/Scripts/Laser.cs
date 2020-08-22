@@ -68,7 +68,6 @@ public class Laser : MonoBehaviour
 
             if (player != null)
             {
-                Debug.Log("Player hit with enemy laser and player != null");
                 player.Damage();
             }           
         }

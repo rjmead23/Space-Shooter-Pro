@@ -7,7 +7,7 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float _speed = 5.0f;
     private float _speedMultiplier = 2.0f;
-    private float _thrusterBoost = 5.0f;
+    private float _thrusterBoost = 2.0f;
     [SerializeField]
     private GameObject _laserPrefab;
     [SerializeField]
@@ -21,13 +21,18 @@ public class Player : MonoBehaviour
 
     private bool _isTripleShotActive = false;
     private bool _isSpeedBoostActive = false;
+
     private bool _isShieldsActive = false;
+    [SerializeField]
+    private int _shieldStrength = 0;
 
     [SerializeField]
     private int _score;
 
     [SerializeField]
     private GameObject _shieldVisualizer;
+    [SerializeField]
+    private SpriteRenderer _shieldSpriteRenderer;
 
     private UIManager _uiManager;
 
@@ -39,15 +44,13 @@ public class Player : MonoBehaviour
 
     private AudioSource _audioSource;
 
-    
-
-
     void Start()
     {
         transform.position = new Vector3(0, 0, 0);
         _spawnManager = GameObject.Find("Spawn_Manager").GetComponent<SpawnManager>();
         _uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
         _audioSource = GetComponent<AudioSource>();
+        _shieldSpriteRenderer.GetComponent<SpriteRenderer>();
 
         if (_spawnManager == null)
         {
@@ -71,12 +74,12 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        CalculateMovement();
-
         if (Input.GetKeyDown(KeyCode.Space) && Time.time > _canFire)
         {
             FireLaser();
         }
+
+        CalculateMovement();
         
     }
 
@@ -102,7 +105,7 @@ public class Player : MonoBehaviour
         {
             transform.Translate(direction * _speed * Time.deltaTime);
         }
-                 
+
         // Control y boundary of the player
         transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, lowerLimit, upperLimit), 0);
 
@@ -139,15 +142,22 @@ public class Player : MonoBehaviour
 
     public void Damage()
     {
-        // If shields is active
-        if (_isShieldsActive == true)
+        // If shield is active
+        if (_isShieldsActive == true && _shieldStrength > 0)
         {
-            _isShieldsActive = false;
-            _shieldVisualizer.SetActive(false);
+            _shieldStrength--;
+            ShieldSpriteRendererColor();
             return;
         }
-
-        _lives--;
+        else if (_isShieldsActive == true && _shieldStrength == 0)
+        {
+            _shieldVisualizer.SetActive(false);
+            _isShieldsActive = false;
+        }
+        else
+        {
+            _lives--;
+        }
 
         if (_lives == 2)
         {
@@ -165,6 +175,28 @@ public class Player : MonoBehaviour
         {
             _spawnManager.OnPlayerDeath();
             Destroy(this.gameObject);
+        }
+    }
+
+    // Phase I Shield Strength
+    void ShieldSpriteRendererColor()
+    {
+        switch (_shieldStrength)
+        {
+            case 3: // green
+                _shieldSpriteRenderer.color = new Color(0f, 1f, 0.02f, 1f);
+                break;
+            case 2: // green
+                _shieldSpriteRenderer.color = new Color(0f, 1f, 0.02f, 1f);
+                break;
+            case 1: // blue
+                _shieldSpriteRenderer.color = new Color(1f, 1f, 1f, 1f);
+                break;
+            case 0: // red
+                _shieldSpriteRenderer.color = new Color(1f, 0f, 0f, 1f);
+                break;
+            default:
+                break;
         }
     }
 
@@ -197,7 +229,10 @@ public class Player : MonoBehaviour
     public void ShieldsActive()
     {
         _isShieldsActive = true;
+        _shieldStrength = 3;
+        _shieldSpriteRenderer.color = new Color(0f, 1f, 0.02f, 1f); // green
         _shieldVisualizer.SetActive(true);
+        
     }
 
     public void AddScore(int points)

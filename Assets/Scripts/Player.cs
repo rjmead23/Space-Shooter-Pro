@@ -235,7 +235,13 @@ public class Player : MonoBehaviour
         _shieldStrength = 3;
         _shieldSpriteRenderer.color = new Color(0f, 1f, 0.02f, 1f); // green
         _shieldVisualizer.SetActive(true);
-        
+    }
+
+    public void RefillAmmo()
+    {
+        // refill ammo
+        _AmmoCount = 15;
+        HandleAmmo();
     }
 
     public void AddScore(int points)

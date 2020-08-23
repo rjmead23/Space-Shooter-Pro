@@ -162,16 +162,8 @@ public class Player : MonoBehaviour
             _lives--;
         }
 
-        if (_lives == 2)
-        {
-            _leftEngine.SetActive(true);
-        }
-        else if (_lives == 1)
-        {
-            _rightEngine.SetActive(true);
-        }
-
-
+        HandleEngineEffect();
+        
         _uiManager.UpdateLives(_lives);
 
         if (_lives < 1)
@@ -242,6 +234,37 @@ public class Player : MonoBehaviour
         // refill ammo
         _AmmoCount = 15;
         HandleAmmo();
+    }
+
+    public void HealPlayer()
+    {
+        Debug.Log("Add Life called!");
+        if (_lives < 3)
+        {
+            _lives++;
+            _uiManager.UpdateLives(_lives);
+        }
+
+        HandleEngineEffect();
+    }
+
+    private void HandleEngineEffect()
+    {
+        if (_lives == 3)
+        {
+            _leftEngine.SetActive(false);
+            _rightEngine.SetActive(false);
+        }
+        else if (_lives == 2)
+        {
+            _leftEngine.SetActive(true);
+            _rightEngine.SetActive(false);
+        }
+        else if (_lives == 1)
+        {
+            _leftEngine.SetActive(true);
+            _rightEngine.SetActive(true);
+        }
     }
 
     public void AddScore(int points)

@@ -7,7 +7,7 @@ public class Powerup : MonoBehaviour
     [SerializeField]
     private float _speed = 3.0f;
     private float _lowerBoundary = -8.0f;
-    [SerializeField] // 0 = Triple shot, 1 = Speed, 2 = Shields, 3 = Ammo Refill
+    [SerializeField] // 0 = Triple shot, 1 = Speed, 2 = Shields, 3 = Ammo Refill, 4 = Health
     private int powerupID;
 
     [SerializeField]
@@ -51,6 +51,9 @@ public class Powerup : MonoBehaviour
                         break;
                     case 3:
                         player.RefillAmmo();
+                        break;
+                    case 4:
+                        player.HealPlayer();
                         break;
                     default:
                         Debug.Log("Default Value");

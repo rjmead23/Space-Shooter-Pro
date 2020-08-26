@@ -13,15 +13,18 @@ public class Player : MonoBehaviour
     [SerializeField]
     private GameObject _tripleShotPrefab;
     [SerializeField]
+    private GameObject _bigShotPrefab;
+    [SerializeField]
     private float _fireRate = 0.5f;
     private float _canFire = -1f;
     [SerializeField]
-    private int _AmmoCount = 15;
+    private int _AmmoCount = 20;
     [SerializeField]
     private int _lives = 3;
     private SpawnManager _spawnManager;
 
     private bool _isTripleShotActive = false;
+    private bool _isBigShotActive = false;
     private bool _isSpeedBoostActive = false;
     private bool _isShieldsActive = false;
     [SerializeField]
@@ -129,11 +132,14 @@ public class Player : MonoBehaviour
         _canFire = Time.time + _fireRate;
         Vector3 offset = new Vector3(0, 0.8f, 0);
         
-        // Instantiate three lasers (triple shot)
-        if (_isTripleShotActive)
+        if (_isTripleShotActive && !_isBigShotActive)
         {
             Instantiate(_tripleShotPrefab, transform.position, Quaternion.identity);
 
+        }
+        else if (_isBigShotActive && !_isTripleShotActive)
+        {
+            Instantiate(_bigShotPrefab, transform.position, Quaternion.identity);
         }
         else
         {
@@ -197,6 +203,7 @@ public class Player : MonoBehaviour
 
     public void TripleShotActive()
     {
+        _isBigShotActive = false;
         _isTripleShotActive = true;
         StartCoroutine(TripleShotPowerDownRoutine());
     }
@@ -205,6 +212,19 @@ public class Player : MonoBehaviour
     {
         yield return new WaitForSeconds(5);
         _isTripleShotActive = false;
+    }
+
+    public void BigShotActive()
+    {
+        _isTripleShotActive = false;
+        _isBigShotActive = true;
+        StartCoroutine(BigShotPowerDownRoutine());
+    }
+
+    IEnumerator BigShotPowerDownRoutine()
+    {
+        yield return new WaitForSeconds(5);
+        _isBigShotActive = false;
     }
 
     public void SpeedBoostActive()

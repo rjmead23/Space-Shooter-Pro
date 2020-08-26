@@ -13,10 +13,6 @@ public class Powerup : MonoBehaviour
     [SerializeField]
     private AudioClip _clip;
 
-    //[SerializeField]
-    //private AudioSource _audioSource;
-
-
 
     void Update()
     {
@@ -54,6 +50,9 @@ public class Powerup : MonoBehaviour
                         break;
                     case 4:
                         player.HealPlayer();
+                        break;
+                    case 5:
+                        player.BigShotActive();
                         break;
                     default:
                         Debug.Log("Default Value");

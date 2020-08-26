@@ -99,10 +99,14 @@ public class Enemy : MonoBehaviour
             Destroy(this.gameObject, 2.8f);
         }
 
-        if (other.CompareTag("Laser"))
+        // BigShot Laser not destroyed when it hits first enemy to allow for multi enemy hit
+        if (other.CompareTag("Laser") || other.CompareTag("BigShot_Laser"))
         {
-            Destroy(other.gameObject);
-
+            if (other.CompareTag("Laser"))
+            {
+                Destroy(other.gameObject);
+            }
+            
             if (_player != null)
             {
                 _player.AddScore(10);

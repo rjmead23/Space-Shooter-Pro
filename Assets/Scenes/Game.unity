@@ -905,8 +905,10 @@ MonoBehaviour:
     type: 3}
   _tripleShotPrefab: {fileID: 3655801536509071506, guid: f6205835157f11b418cf15515165bc51,
     type: 3}
+  _bigShotPrefab: {fileID: 4783599878780745453, guid: 6f8008758b9a17f4086e9bdb4b011edd,
+    type: 3}
   _fireRate: 0.15
-  _AmmoCount: 15
+  _AmmoCount: 20
   _lives: 3
   _shieldStrength: 0
   _score: 0
@@ -1192,6 +1194,7 @@ MonoBehaviour:
   - {fileID: 5916401198959875260, guid: 56f6c0d348607db4e9e219d2725e29e1, type: 3}
   - {fileID: 8950649117648323352, guid: 6ccdef9bc4c167e41a1f40f422b7fd04, type: 3}
   - {fileID: 167839783145920861, guid: 0ea7dd63a29973e43a71e60b761745cf, type: 3}
+  - {fileID: 346717531890324329, guid: 9ed218e5575d1e54ca91f75f7bd45a7b, type: 3}
 --- !u!4 &584755257
 Transform:
   m_ObjectHideFlags: 0
@@ -2039,7 +2042,7 @@ PrefabInstance:
     - target: {fileID: 6751713857096985034, guid: 806e3fa54f3e9e542a607396ca3e2cd1,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.46
+      value: 5.14
       objectReference: {fileID: 0}
     - target: {fileID: 6751713857096985034, guid: 806e3fa54f3e9e542a607396ca3e2cd1,
         type: 3}

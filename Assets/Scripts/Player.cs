@@ -7,7 +7,7 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float _speed = 5.0f;
     private float _speedMultiplier = 2.0f;
-    private float _thrusterBoost = 4.0f;
+    private float _thrusterBoost = 8.0f;
     [SerializeField]
     private GameObject _laserPrefab;
     [SerializeField]
@@ -45,8 +45,12 @@ public class Player : MonoBehaviour
 
     [SerializeField]
     private AudioClip _laserSoundClip;
-
     private AudioSource _audioSource;
+
+    public ThrustBar thrustbar;
+    [SerializeField]
+    private int maxThrust = 5;
+
 
     void Start()
     {
@@ -55,6 +59,8 @@ public class Player : MonoBehaviour
         _uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
         _audioSource = GetComponent<AudioSource>();
         _shieldSpriteRenderer.GetComponent<SpriteRenderer>();
+
+        thrustbar.SetMaxThrust(maxThrust);
 
         if (_spawnManager == null)
         {
@@ -85,8 +91,7 @@ public class Player : MonoBehaviour
             HandleAmmo();
         }
 
-        CalculateMovement();
-        
+        CalculateMovement();       
     }
 
     void CalculateMovement()
@@ -105,7 +110,11 @@ public class Player : MonoBehaviour
         // Phase I Thrusters
         if (Input.GetKey(KeyCode.LeftShift))
         {
-            transform.Translate(direction * (_speed + _thrusterBoost) * Time.deltaTime);
+            if (thrustbar._isCoolDown == false)
+            {
+                transform.Translate(direction * (_speed + _thrusterBoost) * Time.deltaTime);
+                thrustbar.ReduceThrust(1 * Time.deltaTime);
+            }
         }
         else
         {
@@ -270,20 +279,22 @@ public class Player : MonoBehaviour
 
     private void HandleEngineEffect()
     {
-        if (_lives == 3)
+         switch (_lives)
         {
-            _leftEngine.SetActive(false);
-            _rightEngine.SetActive(false);
-        }
-        else if (_lives == 2)
-        {
-            _leftEngine.SetActive(true);
-            _rightEngine.SetActive(false);
-        }
-        else if (_lives == 1)
-        {
-            _leftEngine.SetActive(true);
-            _rightEngine.SetActive(true);
+            case 3:
+                _leftEngine.SetActive(false);
+                _rightEngine.SetActive(false);
+                break;
+            case 2:
+                _leftEngine.SetActive(true);
+                _rightEngine.SetActive(false);
+                break;
+            case 1:
+                _leftEngine.SetActive(true);
+                _rightEngine.SetActive(true);
+                break;
+            default:
+                break;
         }
     }
 

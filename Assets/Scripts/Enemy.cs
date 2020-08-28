@@ -19,7 +19,6 @@ public class Enemy : MonoBehaviour
     private float _fireRate = 3.0f;
     private float _canFire = -1;
 
-    // Start is called before the first frame update
     void Start()
     {
 
@@ -45,7 +44,6 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         CalculateMovement();

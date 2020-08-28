@@ -15,7 +15,6 @@ public class Asteroid : MonoBehaviour
         _spawnManager = GameObject.Find("Spawn_Manager").GetComponent<SpawnManager>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         transform.Rotate(Vector3.forward * _rotateSpeed * Time.deltaTime);
@@ -33,7 +32,4 @@ public class Asteroid : MonoBehaviour
             
         }
     }
-    // Check for laser collision of type trigger.
-    // Instantiate explosion at the position of the asteroid (us)
-    // destroy explosion after 3 seconds.
 }

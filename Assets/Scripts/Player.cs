@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MilkShake;
 
 public class Player : MonoBehaviour
 {
@@ -50,6 +51,11 @@ public class Player : MonoBehaviour
     public ThrustBar thrustbar;
     [SerializeField]
     private int maxThrust = 5;
+
+    [SerializeField]
+    private Shaker _cameraShaker;
+    [SerializeField]
+    private ShakePreset _shakePreset;
 
 
     void Start()
@@ -160,7 +166,6 @@ public class Player : MonoBehaviour
 
     public void Damage()
     {
-        // If shield is active
         if (_isShieldsActive == true && _shieldStrength > 0)
         {
             _shieldStrength--;
@@ -174,6 +179,7 @@ public class Player : MonoBehaviour
         }
         else
         {
+            _cameraShaker.Shake(_shakePreset);
             _lives--;
         }
 
@@ -260,14 +266,12 @@ public class Player : MonoBehaviour
 
     public void RefillAmmo()
     {
-        // refill ammo
-        _AmmoCount = 15;
+        _AmmoCount = 20;
         HandleAmmo();
     }
 
     public void HealPlayer()
     {
-        Debug.Log("Add Life called!");
         if (_lives < 3)
         {
             _lives++;

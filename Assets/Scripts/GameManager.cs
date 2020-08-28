@@ -10,7 +10,6 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        // if the r button was pressed
         if (Input.GetKeyDown(KeyCode.R) && _isGameOver == true)
         {
             SceneManager.LoadScene(1); // Current game Scene

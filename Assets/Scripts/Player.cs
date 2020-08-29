@@ -19,7 +19,7 @@ public class Player : MonoBehaviour
     private float _fireRate = 0.5f;
     private float _canFire = -1f;
     [SerializeField]
-    private int _AmmoCount = 20;
+    private int _AmmoCount = 15;
     [SerializeField]
     private int _lives = 3;
     private SpawnManager _spawnManager;
@@ -266,7 +266,7 @@ public class Player : MonoBehaviour
 
     public void RefillAmmo()
     {
-        _AmmoCount = 20;
+        _AmmoCount = 15;
         HandleAmmo();
     }
 

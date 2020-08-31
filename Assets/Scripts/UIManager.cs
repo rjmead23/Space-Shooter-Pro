@@ -51,9 +51,9 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void UpdateAmmo(int playerAmmo)
+    public void UpdateAmmo(int playerAmmo, int maxPlayerAmmo)
     {
-        _AmmoCount.text = "Ammo: " + playerAmmo.ToString();
+        _AmmoCount.text = "Ammo: " + playerAmmo.ToString() + "/" + maxPlayerAmmo.ToString();
     }
 
     void GameOverSequence()

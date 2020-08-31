@@ -21,6 +21,8 @@ public class Player : MonoBehaviour
     [SerializeField]
     private int _AmmoCount = 15;
     [SerializeField]
+    private int _MaxAmmo = 15;
+    [SerializeField]
     private int _lives = 3;
     private SpawnManager _spawnManager;
 
@@ -310,7 +312,7 @@ public class Player : MonoBehaviour
 
     public void HandleAmmo()
     {
-        _uiManager.UpdateAmmo(_AmmoCount);
+        _uiManager.UpdateAmmo(_AmmoCount, _MaxAmmo);
     }
 
 }

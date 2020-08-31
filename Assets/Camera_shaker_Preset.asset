@@ -9,13 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 065ef50fa72000000037260fa7200000, type: 3}
-  m_Name: Camera_shake_Preset
+  m_Script: {fileID: 11500000, guid: 955f6c9be248dc249a31bad716cc6963, type: 3}
+  m_Name: Camera_shaker_Preset
   m_EditorClassIdentifier: 
   shakeType: 0
-  strength: 0.7
+  strength: 0.3
   roughness: 20
-  fadeIn: 0.03
-  fadeOut: 1
+  fadeIn: 0.05
+  fadeOut: 0.5
   positionInfluence: {x: 1, y: 1, z: 0}
   rotationInfluence: {x: 0, y: 0, z: 0}

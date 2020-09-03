@@ -304,6 +304,22 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void SkullCollected()
+    {
+        _cameraShaker.Shake(_shakePreset);
+        _lives--;
+
+        HandleEngineEffect();
+
+        _uiManager.UpdateLives(_lives);
+
+        if (_lives < 1)
+        {
+            _spawnManager.OnPlayerDeath();
+            Destroy(this.gameObject);
+        }
+    }
+
     public void AddScore(int points)
     {
         _score += points;

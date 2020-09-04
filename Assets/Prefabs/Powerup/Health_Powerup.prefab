@@ -97,6 +97,7 @@ MonoBehaviour:
   _speed: 3
   powerupID: 4
   _clip: {fileID: 8300000, guid: 5ee343246919d2b4bba63ae629e95494, type: 3}
+  _player: {fileID: 0}
 --- !u!1 &167839784029512843
 GameObject:
   m_ObjectHideFlags: 0

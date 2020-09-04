@@ -13,10 +13,31 @@ public class Powerup : MonoBehaviour
     [SerializeField]
     private AudioClip _clip;
 
+    private GameObject _player;
+    private int _pickupSpeed = 4;
+
+    private void Start()
+    {
+        _player = GameObject.Find("Player");
+
+        if (_player == null)
+        {
+            Debug.LogError("The Player is NULL");
+        }
+    }
 
     void Update()
     {
-        transform.Translate(Vector3.down * _speed * Time.deltaTime);
+        if (Input.GetKey(KeyCode.C))
+        {
+            float moveSpeed = _speed * Time.deltaTime;
+
+            this.transform.position = Vector2.MoveTowards(this.transform.position, _player.transform.position, moveSpeed * _pickupSpeed);    
+        }
+        else
+        {
+            transform.Translate(Vector3.down * _speed * Time.deltaTime);
+        }
 
         if (transform.position.y <= _lowerBoundary)
         {

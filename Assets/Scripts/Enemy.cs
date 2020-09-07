@@ -19,9 +19,19 @@ public class Enemy : MonoBehaviour
     private float _fireRate = 3.0f;
     private float _canFire = -1;
 
+    [SerializeField]
+    private GameObject _shieldVisualizer;
+    [SerializeField]
+    private SpriteRenderer _shieldSpriteRenderer;
+    [SerializeField]
+    private float _enemyRandomShield = 0.1f;
+
+    [SerializeField]
+    private int _shieldStrength = 0;
+
     void Start()
     {
-
+        _shieldSpriteRenderer.GetComponent<SpriteRenderer>();
         _audioSource = GetComponent<AudioSource>();
 
         if (_audioSource == null)
@@ -41,6 +51,12 @@ public class Enemy : MonoBehaviour
         if (_animator == null)
         {
             Debug.LogError("The Animator is NULL");
+        }
+
+        if (Random.Range(0f, 1f) >= _enemyRandomShield)
+        {
+            ShieldSpriteRendererColor();
+            _shieldVisualizer.SetActive(true);
         }
     }
 
@@ -88,13 +104,20 @@ public class Enemy : MonoBehaviour
             {
                 player.Damage();
             }
-            // trigger anim
-            _animator.SetTrigger("OnEnemyDeath");
 
-            _speed = 0;
+            if (_shieldStrength >= 0 && _shieldVisualizer.activeSelf == true)
+            {
+                RemoveEnemyShield();
+            }
+            else
+            {
+                _animator.SetTrigger("OnEnemyDeath");
 
-            _audioSource.Play();
-            Destroy(this.gameObject, 2.8f);
+                _speed = 0;
+
+                _audioSource.Play();
+                Destroy(this.gameObject, 2.8f);
+            }            
         }
 
         // BigShot Laser not destroyed when it hits first enemy to allow for multi enemy hit
@@ -105,10 +128,14 @@ public class Enemy : MonoBehaviour
                 Destroy(other.gameObject);
             }
             
-            if (_player != null)
+            if (_player != null && _shieldVisualizer.activeSelf == false)
             {
                 _player.AddScore(10);
-
+            }
+            else
+            {
+                RemoveEnemyShield();
+                return;
             }
 
             // trigger anim
@@ -121,5 +148,23 @@ public class Enemy : MonoBehaviour
             Destroy(this.gameObject, 2.8f);
         }
 
+    }
+
+    void ShieldSpriteRendererColor()
+    {
+        switch (_shieldStrength)
+        {
+            case 0: // red
+                _shieldSpriteRenderer.color = new Color(1f, 0f, 0f, 1f);
+                break;
+            default:
+                break;
+        }
+    }
+
+    void RemoveEnemyShield()
+    {
+        _shieldVisualizer.SetActive(false);
+        _shieldStrength = -1;
     }
 }

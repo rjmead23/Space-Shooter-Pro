@@ -54,7 +54,7 @@ MonoBehaviour:
     type: 3}
   _shieldVisualizer: {fileID: 8696061473613602873}
   _shieldSpriteRenderer: {fileID: 378456245386018890}
-  _enemyRandomShield: 0.1
+  _enemyRandomShield: 0.85
   _shieldStrength: 0
 --- !u!212 &7476653306051691954
 SpriteRenderer:

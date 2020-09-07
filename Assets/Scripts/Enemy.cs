@@ -18,6 +18,7 @@ public class Enemy : MonoBehaviour
     private AudioSource _audioSource;
     private float _fireRate = 3.0f;
     private float _canFire = -1;
+    private bool _stopEnemyFiring = false;
 
     [SerializeField]
     private GameObject _shieldVisualizer;
@@ -64,7 +65,7 @@ public class Enemy : MonoBehaviour
     {
         CalculateMovement();
 
-        if (Time.time > _canFire)
+        if (Time.time > _canFire && _stopEnemyFiring == false)
         {
             _fireRate = Random.Range(3f, 9f);
             _canFire = Time.time + _fireRate;
@@ -112,7 +113,7 @@ public class Enemy : MonoBehaviour
             else
             {
                 _animator.SetTrigger("OnEnemyDeath");
-
+                StopEnemyFiring();
                 _speed = 0;
 
                 _audioSource.Play();
@@ -140,7 +141,7 @@ public class Enemy : MonoBehaviour
 
             // trigger anim
             _animator.SetTrigger("OnEnemyDeath");
-
+            StopEnemyFiring();
             _speed = 0;
             _audioSource.Play();
 
@@ -166,5 +167,10 @@ public class Enemy : MonoBehaviour
     {
         _shieldVisualizer.SetActive(false);
         _shieldStrength = -1;
+    }
+
+    void StopEnemyFiring()
+    {
+        _stopEnemyFiring = true;
     }
 }

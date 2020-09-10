@@ -59,8 +59,6 @@ public class Player : MonoBehaviour
     [SerializeField]
     private ShakePreset _shakePreset;
 
-    
-
 
     void Start()
     {

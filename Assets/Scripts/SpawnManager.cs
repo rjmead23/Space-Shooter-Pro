@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class SpawnManager : MonoBehaviour
 {
     [SerializeField]
@@ -12,6 +13,11 @@ public class SpawnManager : MonoBehaviour
     private GameObject _enemyContainer;
     [SerializeField]
     private GameObject[] powerups;
+    [SerializeField]
+    private GameObject[] _powerupAmmo;
+    [SerializeField]
+    private float _ammoPowerupFrequency = 0.6f;
+
 
     private bool _stopSpawning = false;
 
@@ -33,7 +39,6 @@ public class SpawnManager : MonoBehaviour
             newEnemy.transform.parent = _enemyContainer.transform;
             yield return new WaitForSeconds(_enemyWaitTime);
         }
-
     }
 
     IEnumerator SpawnPowerupRoutine()
@@ -41,10 +46,21 @@ public class SpawnManager : MonoBehaviour
         yield return new WaitForSeconds(5.0f);
         while (_stopSpawning == false)
         {
+            float randomPowerupSelection = Random.Range(0f, 1f);
             Vector3 posToSpawn = new Vector3(Random.Range(-8f, 8f), 8, 0);
-            int randomPowerup = Random.Range(0, powerups.Length);
-            Instantiate(powerups[randomPowerup], posToSpawn, Quaternion.identity);
-            yield return new WaitForSeconds(Random.Range(3, 8));
+
+            if (randomPowerupSelection <= _ammoPowerupFrequency)
+            {
+                Instantiate(_powerupAmmo[0], posToSpawn, Quaternion.identity);
+                yield return new WaitForSeconds(Random.Range(3, 8));
+            }
+            else
+            {
+                int randomPowerup = Random.Range(0, powerups.Length);
+                Instantiate(powerups[randomPowerup], posToSpawn, Quaternion.identity);
+                yield return new WaitForSeconds(Random.Range(3, 8));
+            }
+
         }
     }
 
